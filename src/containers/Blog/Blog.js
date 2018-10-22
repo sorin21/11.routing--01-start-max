@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, NavLink, Switch} from 'react-router-dom';
+import {Route, NavLink, Switch, Redirect} from 'react-router-dom';
 import Loadable from 'react-loadable';
 import './Blog.css';
 
@@ -17,7 +17,7 @@ const LazyImport = (loader) => Loadable({
 });
 
 const Posts = LazyImport(() => import('../../components/Posts/Posts'))
-const FullPost = LazyImport(() => import('../../components/FullPost/FullPost'))
+// const FullPost = LazyImport(() => import('../../components/FullPost/FullPost'))
 const NewPost = LazyImport(() => import('../../components/NewPost/NewPost'))
 const Search = LazyImport(() => import('../../components/HashSearch'))
 
@@ -28,17 +28,19 @@ class Blog extends Component {
         <header>
           <nav>
             <ul>
-              <li><NavLink exact to="/">Home</NavLink></li>
+              <li><NavLink exact to="/posts">Home</NavLink></li>
               <li><NavLink to="/new-post">New Post</NavLink></li>
               <li><NavLink to="/search">Search</NavLink></li>
             </ul>
           </nav>
         </header>
         <Switch>
-          <Route path="/" exact component={Posts} />
-          <Route path="/search" component={Search} />
           <Route path="/new-post" component={NewPost} />
-          <Route path="/posts/:id" exact component={FullPost} />
+          <Route path="/search" component={Search} />
+          <Route path="/posts" component={Posts} />
+          <Redirect from="/" to="/posts" />
+          {/* <Route path="/" component={Posts} /> */}
+          {/* <Route path="/posts/:id" exact component={FullPost} /> */}
         </Switch>
       </div>
     );

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-// import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import Post from '../Post/Post'
 import axios from '../../axios'
+import FullPost from '../FullPost/FullPost';
 import './Posts.css'
 
 export default class Posts extends Component {
@@ -55,6 +56,7 @@ export default class Posts extends Component {
         <section className="Posts">
           {posts}
         </section>
+        <Route path={this.props.match.url + "/:id"} exact  component={FullPost} />
       </div>
     )
   }
